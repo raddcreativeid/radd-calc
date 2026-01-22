@@ -3,231 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radd Calculator - Hitung Cuan Shopee Lebih Akurat</title>
+    <title>Radd Calculator - Amanin Profit Shopee Lo!</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --shopee-orange: #ee4d2d;
-            --radd-dark: #1a1a1a;
-            --bg-gray: #f4f4f4;
-        }
+        :root { --shopee: #ee4d2d; --dark: #1a1a1a; --success: #2ecc71; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #f8f9fa; color: var(--dark); }
+        
+        header { display: flex; align-items: center; justify-content: space-between; padding: 15px 5%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); sticky: top; }
+        .logo-group { display: flex; align-items: center; gap: 12px; }
+        .logo-group img { height: 35px; }
+        .divider { width: 1px; height: 20px; background: #ddd; }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-gray);
-            color: var(--radd-dark);
-        }
+        .hero { text-align: center; padding: 60px 5% 40px; background: white; }
+        .hero h1 { font-size: 2.2rem; color: var(--shopee); margin-bottom: 10px; font-weight: 800; }
+        .hero p { color: #666; max-width: 700px; margin: 0 auto; line-height: 1.6; }
 
-        /* HEADER SECTION */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 5%;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .main-card { max-width: 550px; margin: -20px auto 40px; background: #fff; padding: 30px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        
+        .section-title { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ""; flex: 1; height: 1px; background: #eee; }
 
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .input-box { margin-bottom: 20px; }
+        .input-box label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; color: #444; }
+        .input-box input { width: 100%; padding: 14px; border: 2px solid #f0f0f0; border-radius: 12px; font-size: 1rem; box-sizing: border-box; transition: 0.3s; font-family: inherit; }
+        .input-box input:focus { border-color: var(--shopee); outline: none; background: #fffcfb; }
 
-        .logo-group img {
-            height: 40px;
-        }
+        .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .check-item { background: #f9f9f9; padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid #eee; transition: 0.2s; }
+        .check-item:hover { border-color: var(--shopee); }
+        .check-item input { width: 18px; height: 18px; accent-color: var(--shopee); }
+        .check-item span { font-size: 0.85rem; font-weight: 600; color: #555; }
 
-        .divider {
-            width: 1px;
-            height: 25px;
-            background: #ddd;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            text-align: center;
-            padding: 50px 5%;
-            background: linear-gradient(135deg, #fff 0%, #fff5f2 100%);
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: var(--shopee-orange);
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* CALCULATOR BOX */
-        .calc-container {
-            max-width: 500px;
-            margin: -30px auto 50px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid #eee;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--shopee-orange);
-            outline: none;
-        }
-
-        /* RESULT BOX */
-        .result-box {
-            background: #fff5f2;
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px dashed var(--shopee-orange);
-            margin-top: 25px;
-        }
-
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .result-label { font-weight: 600; color: #555; }
-        .result-value { font-weight: 800; color: var(--shopee-orange); font-size: 1.2rem; }
-
-        /* CTA SECTION */
-        .cta-section {
-            text-align: center;
-            padding: 40px 5%;
-        }
-
-        .btn-main {
-            background: var(--shopee-orange);
-            color: #fff;
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            display: inline-block;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(238, 77, 45, 0.3);
-        }
-
-        .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(238, 77, 45, 0.4);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            font-size: 0.8rem;
-            color: #999;
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="logo-group">
-        <img src="https://drive.google.com/thumbnail?id=1uJRtCeYQ0Hxi-AfuUOtxUhOz9YsxHfki&sz=w500" alt="Radd Calculator">
-        <div class="divider"></div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shopee.svg/1200px-Shopee.svg.png" alt="Shopee">
-    </div>
-    <div style="font-weight: 800; color: #333;">V 1.0</div>
-</header>
-
-<section class="hero">
-    <h1>Jangan Biarkan Profit Lo Bocor!</h1>
-    <p>Hitung harga jual ideal di Shopee supaya target bersih aman setelah dipotong biaya admin dan promo.</p>
-</section>
-
-<div class="calc-container">
-    <div class="input-group">
-        <label>Target Bersih yang Diterima (Rp)</label>
-        <input type="number" id="targetBersih" placeholder="Contoh: 70000" oninput="hitung()">
-    </div>
-    <div class="input-group">
-        <label>Biaya Admin (%)</label>
-        <input type="number" id="adminFee" placeholder="Contoh: 8.25" oninput="hitung()">
-    </div>
-    <div class="input-group">
-        <label>Gratis Ongkir Xtra (%)</label>
-        <input type="number" id="extraFee" placeholder="Contoh: 5.5" oninput="keyup()">
-    </div>
-    <div class="input-group">
-        <label>Biaya Proses Pesanan (Fixed)</label>
-        <input type="text" value="Rp 1.250" disabled style="background: #f9f9f9;">
-    </div>
-
-    <div class="result-box">
-        <div class="result-item">
-            <span class="result-label">Harga Jual Akhir:</span>
-            <span class="result-value" id="hargaAkhir">Rp 0</span>
-        </div>
-        <p style="font-size: 0.75rem; color: #888; margin: 0; text-align: center;">*Harga minimal yang harus lo pasang di Shopee</p>
-    </div>
-</div>
-
-<section class="cta-section">
-    <h2>MODAL KECIL BUKAN HALANGAN!</h2>
-    <p>Dapatkan update rumus terbaru & konsultasi strategi jualan agar toko makin gacor.</p>
-    <br>
-    <a href="https://wa.me/NOMOR_WA_LO" class="btn-main">KONSULTASI SEKARANG!</a>
-</section>
-
-<footer>
-    &copy; 2026 Radd Creative - Solusi Seller Cerdas.
-</footer>
-
-<script>
-    function hitung() {
-        const target = parseFloat(document.getElementById('targetBersih').value) || 0;
-        const admin = parseFloat(document.getElementById('adminFee').value) || 0;
-        const extra = parseFloat(document.getElementById('extraFee').value) || 0;
-        const fixedFee = 1250;
-
-        if (target > 0) {
-            // Rumus: (Target + Fixed) / (1 - (Admin% + Extra%))
-            const totalPercent = (admin + extra) / 100;
-            const hargaJual = (target + fixedFee) / (1 - totalPercent);
-            
-            document.getElementById('hargaAkhir').innerText = "Rp " + Math.ceil(hargaJual).toLocaleString('id-ID');
-        } else {
-            document.getElementById('hargaAkhir').innerText = "Rp 0";
-        }
-    }
-</script>
-
-</body>
-</html>
+        .result-area { background: var(--dark); color: white; padding: 25px; border-radius: 18px; margin-top: 30px; position: relative; overflow: hidden; }
+        .result-area::before { content: ""; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: var(--shopee); opacity: 0.1; border-radius: 0 0 0 100%; }
+        
+        .res-row { display: flex; justify-content
