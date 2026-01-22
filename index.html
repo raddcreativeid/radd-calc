@@ -37,4 +37,119 @@
         .result-area { background: var(--dark); color: white; padding: 25px; border-radius: 18px; margin-top: 30px; position: relative; overflow: hidden; }
         .result-area::before { content: ""; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: var(--shopee); opacity: 0.1; border-radius: 0 0 0 100%; }
         
-        .res-row { display: flex; justify-content
+        .res-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .res-label { font-size: 0.85rem; opacity: 0.7; }
+        .res-val { font-weight: 700; font-size: 1.1rem; }
+        .res-total { border-top: 1px solid #444; padding-top: 15px; margin-top: 5px; }
+        .res-total .res-val { font-size: 1.8rem; color: var(--shopee); }
+
+        .warning-box { background: #fff5f2; border-left: 4px solid var(--shopee); padding: 15px; margin-top: 20px; border-radius: 8px; font-size: 0.8rem; color: #666; line-height: 1.5; }
+
+        .cta-box { text-align: center; padding: 40px 5%; }
+        .btn { background: var(--shopee); color: white; padding: 18px 45px; border-radius: 15px; text-decoration: none; font-weight: 800; display: inline-block; transition: 0.3s; border: none; cursor: pointer; font-size: 1rem; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(238,77,45,0.3); }
+
+        footer { text-align: center; padding: 40px; font-size: 0.75rem; color: #bbb; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-group">
+        <img src="https://drive.google.com/thumbnail?id=1uJRtCeYQ0Hxi-AfuUOtxUhOz9YsxHfki&sz=w500" alt="Radd Calculator">
+        <div class="divider"></div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shopee.svg/1200px-Shopee.svg.png" alt="Shopee">
+    </div>
+    <div style="font-weight: 800; font-size: 0.8rem; background: #eee; padding: 5px 12px; border-radius: 20px;">VERSI 1.0</div>
+</header>
+
+<section class="hero">
+    <h1>Stop Sedekah ke Marketplace!</h1>
+    <p>Banyak seller bangkrut karena nggak sadar marginnya abis dimakan biaya admin & program promo. Hitung <b>Profit Bersih</b> lo secara akurat dalam hitungan detik.</p>
+</section>
+
+<div class="main-card">
+    <div class="section-title">1. Setup Target & Biaya</div>
+    
+    <div class="input-box">
+        <label>Target Bersih yang Mau Diterima (Rp)</label>
+        <input type="number" id="target" placeholder="Contoh: 70000" oninput="hitung()">
+    </div>
+
+    <div class="input-box">
+        <label>Biaya Admin Kategori (%)</label>
+        <input type="number" id="admin" placeholder="Contoh: 8.25" oninput="hitung()">
+    </div>
+
+    <div class="section-title">2. Program Shopee (Opsional)</div>
+    
+    <div class="checkbox-grid">
+        <label class="check-item">
+            <input type="checkbox" id="gox" onchange="hitung()">
+            <span>Gratis Ongkir Xtra</span>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" id="cbx" onchange="hitung()">
+            <span>Cashback Xtra</span>
+        </label>
+    </div>
+
+    <div class="section-title">3. Kalkulasi Profit</div>
+
+    <div class="result-area">
+        <div class="res-row">
+            <span class="res-label">Biaya Proses Pesanan (Fixed)</span>
+            <span class="res-val">Rp 1.250</span>
+        </div>
+        <div class="res-row">
+            <span class="res-label">Total Potongan Sistem</span>
+            <span class="res-val" id="potongan">Rp 0</span>
+        </div>
+        <div class="res-row res-total">
+            <span class="res-label">Harga Jual Minimal:</span>
+            <span class="res-val" id="hargaAkhir">Rp 0</span>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <b>DANGER:</b> Harga di atas adalah harga minimal agar target bersih lo tetap <b>Rp <span id="targetDisplay">0</span></b>. Jangan jual di bawah angka ini atau lo bakal nombok!
+    </div>
+</div>
+
+<section class="cta-box">
+    <h2>DAPATKAN STRATEGI PRICING PRO</h2>
+    <p>Dapatkan update rumus admin terbaru 2026 dan konsultasi cara main harga coret yang aman.</p>
+    <br>
+    <a href="https://wa.me/628123456789" class="btn">AMANKAN PROFIT LO SEKARANG!</a>
+</section>
+
+<footer>
+    &copy; 2026 Radd Creative - Integritas Analitik untuk UMKM Indonesia.
+</footer>
+
+<script>
+    function hitung() {
+        const target = parseFloat(document.getElementById('target').value) || 0;
+        const admin = parseFloat(document.getElementById('admin').value) || 0;
+        const gox = document.getElementById('gox').checked ? 5.5 : 0;
+        const cbx = document.getElementById('cbx').checked ? 1.4 : 0; // Estimasi Cashback Xtra
+        const fixed = 1250;
+
+        document.getElementById('targetDisplay').innerText = target.toLocaleString('id-ID');
+
+        if (target > 0) {
+            const totalPercent = (admin + gox + cbx) / 100;
+            const hargaJual = (target + fixed) / (1 - totalPercent);
+            const totalPotongan = hargaJual - target;
+
+            document.getElementById('hargaAkhir').innerText = "Rp " + Math.ceil(hargaJual).toLocaleString('id-ID');
+            document.getElementById('potongan').innerText = "Rp " + Math.ceil(totalPotongan).toLocaleString('id-ID');
+        } else {
+            document.getElementById('hargaAkhir').innerText = "Rp 0";
+            document.getElementById('potongan').innerText = "Rp 0";
+        }
+    }
+</script>
+
+</body>
+</html>
